@@ -1,0 +1,75 @@
+ALFREDTEST:
+  data_path: "/home/alfworld/detector/data/test/"
+  object_types: "all"
+  height: 400
+  weight: 400
+  balance_scenes: True
+  kitchen_factor: 1.
+  living_factor: 1.
+  bedroom_factor: 1.
+  bathroom_factor: 1.
+
+INPUT:
+  MIN_SIZE_TRAIN: (800,)   # Size of the smallest side of the image during training
+  MAX_SIZE_TRAIN: 1024     # Maximum size of the side of the image during training
+  MIN_SIZE_TEST: 800       # Size of the smallest side of the image during testing
+  MAX_SIZE_TEST: 1024      # Maximum size of the side of the image during testing
+  PIXEL_MEAN: [102.9801, 115.9465, 122.7717]  # Values to be used for image normalization
+  PIXEL_STD: [1., 1., 1.]  # Values to be used for image normalization
+  TO_BGR255: False          # Convert image to BGR format (for Caffe2 models), in range 0-255
+  BRIGHTNESS: 0.0          # Image ColorJitter
+  CONTRAST: 0.0            # Image ColorJitter
+  SATURATION: 0.0          # Image ColorJitter
+  HUE: 0.0                 # Image ColorJitter
+  VERTICAL_FLIP_PROB_TRAIN: 0.0
+
+GENERAL:
+  PRINT_DEBUG: False
+  SAVE_EVAL_FRAME: True
+  ANALYZE_GRAPH: False
+  LOAD_PRETRAINED: False
+  LOAD_PRETRAINED_PATH: ""
+  use_exploration_frame_feats: False
+  save_path: '../exp/MOCAMaskDepthGraph_V1'
+  DECODER: "MOCAMaskDepthGraph_V1"
+
+SCENE_GRAPH:
+  GPU: True
+  ORACLE: True
+  NORMALIZATION: True
+  # 
+  OBJ_NAME_EMBEDDING: "word_embed/object_alfworld.csv"
+  # PRIORI
+  PRIORI: True
+  PRIORI_OBJ_NAME_EMBEDDING: "data_dgl/object.csv" # $GRAPH_ANALYSIS/data_dgl/object.csv
+  PRIORI_OBJ_RBG_FEATURE_EMBEDDING: "rgb_feature/object_rgb_feature.json" # $ALFWORLD_ROOT/agents/semantic_graph/rgb_feature/object_rgb_feature.json
+  PRIORI_OBJ_ATTRIBUTE_FEATURE: "rgb_feature/object_attribute.json" # $ALFWORLD_ROOT/agents/semantic_graph/rgb_feature/object_rgb_feature.json
+  PRIORI_OBJ_ADJ: "visual_genome/A.csv" # $GRAPH_ANALYSIS/visual_genome/A.csv
+  #
+  GRAPH_RESULT_PATH: "/home/alfworld/global_graph/"
+  SAME_VISION_FEATURE_THRESHOLD: 0.7
+  MODEL: "softmax_gcn"
+  GraphData: "HeteGraphData"
+  EMBED_TYPE: "SelfAttn"  # "WeightedSum", "SelfAttn"
+
+  NODE_INPUT_RGB_FEATURE_SIZE: 512 # resnet 512x7x7 -> GAP
+  NODE_INPUT_WORD_EMBED_SIZE: 300
+  NODE_MIDDEL_FEATURE_SIZE: 16 # 300 -> 16
+  NODE_OUT_FEATURE_SIZE: 16    # 16+24 -> 16
+  EMBED_FEATURE_SIZE: 64
+
+  # ATTRIBUTE
+  ATTRIBUTE_FEATURE_SIZE: 24   # 23 + 1
+
+  # CHOSE_IMPORTENT_NODE
+  CHOSE_IMPORTENT_NODE: True
+  USE_ADJ_TO_GNN: False
+  NUM_CHOSE_NODE: 10
+
+  # EMBED_CURRENT_STATE
+  EMBED_CURRENT_STATE: True
+
+  # EMBED_HISTORY_CHANGED_NODES
+  EMBED_HISTORY_CHANGED_NODES: True
+
+  RESULT_FEATURE: 784 # (16+24) * 10 nodes + 128 + 128(EMBED_CURRENT_STATE) + 128(EMBED_HISTORY_CHANGED_NODES)

@@ -1,0 +1,54 @@
+ALFREDTEST:
+  data_path: "/home/alfworld/detector/data/test/"
+  object_types: "all" # all, objects, receptacles, ori_objects
+  height: 400
+  weight: 400
+  balance_scenes: True
+  kitchen_factor: 1.
+  living_factor: 1.
+  bedroom_factor: 1.
+  bathroom_factor: 1.
+
+INPUT:
+  MIN_SIZE_TRAIN: (800,)   # Size of the smallest side of the image during training
+  MAX_SIZE_TRAIN: 1024     # Maximum size of the side of the image during training
+  MIN_SIZE_TEST: 800       # Size of the smallest side of the image during testing
+  MAX_SIZE_TEST: 1024      # Maximum size of the side of the image during testing
+  PIXEL_MEAN: [102.9801, 115.9465, 122.7717]  # Values to be used for image normalization
+  PIXEL_STD: [1., 1., 1.]  # Values to be used for image normalization
+  TO_BGR255: False          # Convert image to BGR format (for Caffe2 models), in range 0-255
+  BRIGHTNESS: 0.0          # Image ColorJitter
+  CONTRAST: 0.0            # Image ColorJitter
+  SATURATION: 0.0          # Image ColorJitter
+  HUE: 0.0                 # Image ColorJitter
+  VERTICAL_FLIP_PROB_TRAIN: 0.0
+
+GENERAL:
+  LOAD_PRETRAINED: False
+  LOAD_PRETRAINED_PATH: ""
+
+SCENE_GRAPH:
+  GPU: True
+  ORACLE: False
+  PRIORI: True
+  OBJ_NAME_EMBEDDING: "word_embed/object_alfworld.csv"
+  GRAPH_RESULT_PATH: "/home/alfworld/global_graph/"
+  SAME_VISION_FEATURE_THRESHOLD: 0.7
+  NODE_FEATURE_SIZE: 2371       # 2048 + 23 + 300
+  NODE_MIDDEL_FEATURE_SIZE: 2371
+  NODE_OUT_FEATURE_SIZE: 2371
+  NODE_INPUT_RGB_FEATURE_SIZE: 2048
+  #
+  PRIORI: False
+  PRIORI_OBJ_NAME_EMBEDDING: "data_dgl/object.csv" # $GRAPH_ANALYSIS/data_dgl/object.csv
+  PRIORI_OBJ_RBG_FEATURE_EMBEDDING: "sgg_mask_feature/object_sgg_mask_feature.json" # $ALFWORLD_ROOT/agents/semantic_graph/rgb_feature/object_rgb_feature.json
+  PRIORI_OBJ_ATTRIBUTE_FEATURE: "rgb_feature/object_attribute.json" # $ALFWORLD_ROOT/agents/semantic_graph/rgb_feature/object_rgb_feature.json
+  PRIORI_OBJ_ADJ: "visual_genome/A.csv" # $GRAPH_ANALYSIS/visual_genome/A.csv
+  #
+  MODEL: "gcn"
+  GraphData: "HeteGraphData"
+  NORMALIZATION: False
+  EMBED_TYPE: "WeightedSum"  # "WeightedSum", "SelfAttn"
+  EMBED_FEATURE_SIZE: 512
+  RESULT_FEATURE: 512
+

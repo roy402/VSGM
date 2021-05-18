@@ -1,0 +1,64 @@
+DATASET:
+  NAME: "vg"
+  MODE: "benchmark"
+  TRAIN_BATCH_SIZE: 3
+  TEST_BATCH_SIZE: 1
+ALFREDTEST:
+  data_path: "/home/alfworld/detector/data/test/"
+  object_types: "all"
+  height: 400
+  weight: 400
+  balance_scenes: True
+  kitchen_factor: 1.
+  living_factor: 1.
+  bedroom_factor: 1.
+  bathroom_factor: 1.
+INPUT:
+  TO_BGR255: False
+MODEL:
+  SAVE_SGG_RESULT: False
+  SAVE_SGG_RESULT_PATH: "/home/alfworld/sgg_detector/"
+  WEIGHT_IMG: "/home/graph-rcnn.pytorch/checkpoints/vg_benchmark_object/R-101-C4/sg_baseline_joint_2/BatchSize_4/Base_LR_0.0005/checkpoint_final.pth"
+  # WEIGHT_IMG: "/home/graph-rcnn.pytorch/checkpoints/vg_benchmark_object/R-101-C4/sg_baseline_joint_2/BatchSize_4/rgb_train_feat_base_lr_0.0005/checkpoint_final.pth"
+  # WEIGHT_IMG: "/home/graph-rcnn.pytorch/checkpoints/vg_benchmark_object/R-101-C4/sg_baseline_joint_2/BatchSize_4/mask_train_feat_attribute_base_lr_0.0005/checkpoint_0234999.pth"
+  # WEIGHT_IMG: "/home/graph-rcnn.pytorch/checkpoints/vg_benchmark_object/R-101-C4/sg_baseline_joint_2/BatchSize_4/mask_relation_attribute/checkpoint_0219999.pth"
+  RELATION_ON: True
+  ATTRIBUTE_ON: True
+  ALGORITHM: "sg_baseline"
+  USE_FREQ_PRIOR: False
+  USE_RELPN: False
+  BACKBONE:
+    CONV_BODY: "R-101-C4"
+    FREEZE_PARAMETER: False
+  RPN:
+    FREEZE_PARAMETER: False
+  ROI_HEADS:
+    BATCH_SIZE_PER_IMAGE: 256
+    DETECTIONS_PER_IMG: 64
+  ROI_BOX_HEAD:
+    NUM_CLASSES: 108
+    FREEZE_PARAMETER: False
+  ROI_RELATION_HEAD:
+    FILTER_NON_OVERLAP: False
+    BATCH_SIZE_PER_IMAGE: 256
+    TRIPLETS_PER_IMG: 100
+    NUM_CLASSES: 2
+    IMP_FEATURE_UPDATE_STEP: 2
+    MSDN_FEATURE_UPDATE_STEP: 2
+    GRCNN_FEATURE_UPDATE_STEP: 2
+    GRCNN_SCORE_UPDATE_STEP: 2
+  ROI_ATTRIBUTE_HEAD:
+    FEATURE_EXTRACTOR: "FPN2MLPFeatureExtractor"
+    PREDICTOR: "FPNPredictor"
+    USE_BINARY_LOSS: True               # choose binary, because cross_entropy loss deteriorate the box head, even with 0.1 weight
+    POS_WEIGHT: 50.0
+    ATTRIBUTE_LOSS_WEIGHT: 1.0
+    NUM_ATTRIBUTES: 23                 # 201 for VG, 501 for GQA
+    MAX_ATTRIBUTES: 23             
+    ATTRIBUTE_BGFG_SAMPLE: True    
+    ATTRIBUTE_BGFG_RATIO: 3   
+SOLVER:
+  BASE_LR: 5e-4
+  MAX_ITER: 100000
+  STEPS: (70000,90000)
+  CHECKPOINT_PERIOD: 5000
