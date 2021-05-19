@@ -81,7 +81,7 @@ python models/eval_moca/eval_semantic.py models/config/without_env_base.yaml --m
 ```
 Semantic Graph •* + SLAM
 ```
-
+python models/eval_moca/eval_semantic.py models/config/without_env_base.yaml --model_path exp/graph_map_slam_04-05-2021_09-18-22/best_seen.pth --sgg_config_file $GRAPH_RCNN_ROOT/configs/attribute.yaml --model seq2seq_im_moca_graph_map --data data/full_2.1.0/ --eval_split tests_seen --gpu --gpu_id 1 --task_types 1 --subgoals all
 ```
 Semantic Graph •*
 ```
