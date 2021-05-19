@@ -132,14 +132,14 @@ Please check `Evaluation code`
 ## Other
 
 ### Scene Graph Generation
-Read $ALFWORLD_ROOT/agents/sgg/TRAIN_SGG.md
-Read $GRAPH_RCNN_ROOT/README.md
+Read `$ALFWORLD_ROOT/agents/sgg/TRAIN_SGG.md`
+Read `$GRAPH_RCNN_ROOT/README.md`
 
 ### Semantic Graph & Pytorch-Geometric
-Read $ALFWORLD_ROOT/agents/semantic_graph/README.md
+Read `$ALFWORLD_ROOT/agents/semantic_graph/README.md`
 
 ### Spatial Semantic Map
-Read $ALFWORLD_ROOT/agents/graph_map/README.md
+Read `$ALFWORLD_ROOT/agents/graph_map/README.md`
 
 ## Citation
 If you find VSGM useful in your research work, please consider citing:
