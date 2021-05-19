@@ -1,17 +1,22 @@
-numpy
-pandas
-opencv-python
+torch==1.4.0
+ai2thor==2.1.0
 networkx
 h5py
+fasttext
+rdflib==4.2.2
+imageio
+icecream
+imageio-ffmpeg
+adjustText
 tqdm
 vocab
 revtok
 Pillow
-torch==1.1.0
-torchvision==0.3.0
 tensorboardX==1.8
-ai2thor==2.1.0
 gensim
 open3d
 matplotlib==3.4
-quaternion (conda)
+### conda
+# quaternion
+# conda install -c menpo opencv
+# conda install -c dglteam dgl-cuda9.0 # https://github.com/dmlc/dgl/tree/master
