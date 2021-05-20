@@ -143,5 +143,5 @@ Read `$ALFWORLD_ROOT/agents/graph_map/README.md`
 
 ## Citation
 If you find VSGM useful in your research work, please consider citing:
-	
+	Coming Soon
 	
